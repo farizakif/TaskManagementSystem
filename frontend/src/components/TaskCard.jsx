@@ -24,55 +24,59 @@ const TaskCard = ({ task, onEdit, onDelete, onView }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-200 animate-fade-in">
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+    <div className="bg-white/95 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-200 p-6 flex flex-col gap-4 animate-fade-in">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white leading-tight truncate">
             {task.title}
           </h3>
           {task.description && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
               {task.description}
             </p>
           )}
         </div>
-      </div>
-
-      <div className="flex flex-wrap gap-2 mb-4">
-        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(task.status)}`}>
+        <span className={`px-3 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${getStatusColor(task.status)}`}>
           {task.status}
         </span>
-        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getPriorityColor(task.priority)}`}>
-          {task.priority}
-        </span>
       </div>
 
-      <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+      <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-gray-700 dark:text-gray-300">
+        <span className={`px-3 py-1 rounded-full ${getPriorityColor(task.priority)}`}>
+          Priority: {task.priority}
+        </span>
         {task.dueDate && (
-          <p className="mb-1">
-            <span className="font-medium">Due:</span> {new Date(task.dueDate).toLocaleDateString()}
-          </p>
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V5m8 2V5m-9 8h10M5 9h14a2 2 0 012 2v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7a2 2 0 012-2z" />
+            </svg>
+            Due {new Date(task.dueDate).toLocaleDateString()}
+          </span>
         )}
         {task.assignedToFirstName && (
-          <p>
-            <span className="font-medium">Assigned to:</span> {task.assignedToFirstName} {task.assignedToLastName}
-          </p>
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A4 4 0 017 17h10a4 4 0 011.879.804M15 11a3 3 0 10-6 0 3 3 0 006 0z" />
+            </svg>
+            {task.assignedToFirstName} {task.assignedToLastName}
+          </span>
         )}
       </div>
 
       {task.files && task.files.length > 0 && (
-        <div className="mb-4">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            {task.files.length} file{task.files.length > 1 ? 's' : ''} attached
-          </p>
+        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-4.553a1.414 1.414 0 10-2-2L13 8m-2 2l-4.553 4.553a1.414 1.414 0 102 2L11 14m2-2l-2-2" />
+          </svg>
+          <p>{task.files.length} file{task.files.length > 1 ? 's' : ''} attached</p>
         </div>
       )}
 
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2 pt-3 border-t border-gray-100 dark:border-gray-700">
         {onView && (
           <button
             onClick={() => onView(task)}
-            className="flex-1 px-3 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-md transition-colors"
+            className="flex-1 px-3 py-2 text-sm font-medium text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors"
           >
             View
           </button>
@@ -80,7 +84,7 @@ const TaskCard = ({ task, onEdit, onDelete, onView }) => {
         {onEdit && (
           <button
             onClick={() => onEdit(task)}
-            className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
+            className="flex-1 px-3 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
           >
             Edit
           </button>
@@ -88,7 +92,7 @@ const TaskCard = ({ task, onEdit, onDelete, onView }) => {
         {onDelete && (
           <button
             onClick={() => onDelete(task.id)}
-            className="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+            className="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 rounded-lg transition-colors"
           >
             Delete
           </button>
