@@ -9,11 +9,39 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: radial-gradient(circle at top left, #eef2ff 0, #e0f2fe 25%, #f5f3ff 50%, #f9fafb 100%);
+  color: #111827;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* App background with subtle image & overlay */
+.app-background {
+  position: relative;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(to bottom right, rgba(15, 23, 42, 0.1), rgba(88, 28, 135, 0.12)),
+    url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.app-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.8), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.85), transparent 55%);
+  pointer-events: none;
+}
+
+.app-background-inner {
+  position: relative;
+  z-index: 1;
 }
 
 /* Animations */

@@ -134,18 +134,18 @@ const TaskForm = ({ task, users = [], onSave, onCancel, loading = false }) => {
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-end gap-3 pt-2">
+      <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors"
+          className="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100/90 dark:bg-gray-800/80 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full border border-gray-200/80 dark:border-gray-600/80 shadow-sm hover:shadow-md transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-gray-400/60"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={loading}
-          className="px-4 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-full shadow-md hover:shadow-xl transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500/80 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {loading ? 'Saving...' : task ? 'Update' : 'Create'}
         </button>

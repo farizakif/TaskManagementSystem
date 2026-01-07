@@ -24,7 +24,7 @@ const TaskCard = ({ task, onEdit, onDelete, onView }) => {
   }
 
   return (
-    <div className="bg-white/95 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-200 p-6 flex flex-col gap-4 animate-fade-in">
+    <div className="bg-white/95 dark:bg-gray-800/95 rounded-2xl border border-gray-100/80 dark:border-gray-700/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 p-6 flex flex-col gap-4 animate-fade-in">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white leading-tight truncate">
@@ -72,29 +72,29 @@ const TaskCard = ({ task, onEdit, onDelete, onView }) => {
         </div>
       )}
 
-      <div className="flex items-center gap-2 pt-3 border-t border-gray-100 dark:border-gray-700">
+      <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
         {onView && (
           <button
             onClick={() => onView(task)}
-            className="flex-1 px-3 py-2 text-sm font-medium text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-colors"
+            className="flex-1 min-w-[90px] inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium text-indigo-700 dark:text-indigo-300 bg-indigo-50/80 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 rounded-full shadow-sm hover:shadow-md transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400/60"
           >
-            View
+            <span>View</span>
           </button>
         )}
         {onEdit && (
           <button
             onClick={() => onEdit(task)}
-            className="flex-1 px-3 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+            className="flex-1 min-w-[90px] inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-full shadow-md hover:shadow-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500/70"
           >
-            Edit
+            <span>Edit</span>
           </button>
         )}
         {onDelete && (
           <button
             onClick={() => onDelete(task.id)}
-            className="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 rounded-lg transition-colors"
+            className="min-w-[90px] inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium text-red-600 dark:text-red-300 bg-red-50/90 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/60 rounded-full shadow-sm hover:shadow-md transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-red-500/70"
           >
-            Delete
+            <span>Delete</span>
           </button>
         )}
       </div>
