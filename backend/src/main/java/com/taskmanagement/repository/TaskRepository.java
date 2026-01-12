@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     
-    List<Task> findByAssignedToId(Long assignedToId);
+    List<Task> findByAssignedToId(Long assignedTo);
     
     List<Task> findByCreatedById(Long createdById);
     
@@ -21,17 +21,22 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     
     List<Task> findByPriority(Priority priority);
     
-    @Query("SELECT t FROM Task t WHERE " +
-           "(:title IS NULL OR LOWER(t.title) LIKE LOWER(CONCAT('%', :title, '%'))) AND " +
-           "(:status IS NULL OR t.status = :status) AND " +
-           "(:priority IS NULL OR t.priority = :priority) AND " +
-           "(:assignedToId IS NULL OR t.assignedTo.id = :assignedToId)")
-    List<Task> searchTasks(
+    @Query("""
+SELECT t FROM Task t
+WHERE (:title IS NULL OR LOWER(t.title) LIKE :title)
+AND (:status IS NULL OR t.status = :status)
+AND (:priority IS NULL OR t.priority = :priority)
+AND (:assignedTo IS NULL OR t.assignedTo.id = :assignedTo)
+""")
+List<Task> searchTasks(
         @Param("title") String title,
         @Param("status") TaskStatus status,
         @Param("priority") Priority priority,
-        @Param("assignedToId") Long assignedToId
-    );
+        @Param("assignedTo") Long assignedTo
+);
+
+
+
     
     @Query("SELECT t FROM Task t WHERE t.assignedTo.id = :userId OR t.createdBy.id = :userId")
     List<Task> findMyTasks(@Param("userId") Long userId);

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Component
+// @Component  // Disabled to prevent auto-data initialization
 public class DataInitializer implements CommandLineRunner {
     
     private static final Logger logger = LoggerFactory.getLogger(DataInitializer.class);

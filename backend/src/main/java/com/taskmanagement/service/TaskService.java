@@ -112,10 +112,13 @@ public class TaskService {
         return tasks;
     }
     
-    public List<TaskResponse> searchTasks(String search, TaskStatus status, Priority priority, Long assignedToId) {
+        public List<TaskResponse> searchTasks(String search, TaskStatus status, Priority priority, Long assignedToId) {
         logger.debug("Searching tasks with filters - search: {}, status: {}, priority: {}, assignedToId: {}", 
-                search, status, priority, assignedToId);
-        List<TaskResponse> tasks = taskRepository.searchTasks(search, status, priority, assignedToId).stream()
+            search, status, priority, assignedToId);
+
+        String titlePattern = (search != null && !search.isEmpty()) ? ("%" + search.toLowerCase() + "%") : null;
+
+        List<TaskResponse> tasks = taskRepository.searchTasks(titlePattern, status, priority, assignedToId).stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
         logger.debug("Found {} tasks matching criteria", tasks.size());
