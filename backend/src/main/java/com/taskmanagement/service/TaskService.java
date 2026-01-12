@@ -70,9 +70,12 @@ public class TaskService {
         User user = userRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         
-        // Only creator or assigned user can update
-        if (!task.getCreatedBy().getId().equals(user.getId()) && 
-            (task.getAssignedTo() == null || !task.getAssignedTo().getId().equals(user.getId()))) {
+        // Only creator, assigned user, or ADMIN can update
+        boolean isAdmin = user.getRole() == Role.ADMIN;
+        boolean isCreator = task.getCreatedBy().getId().equals(user.getId());
+        boolean isAssignee = task.getAssignedTo() != null && task.getAssignedTo().getId().equals(user.getId());
+        
+        if (!isAdmin && !isCreator && !isAssignee) {
             logger.warn("Unauthorized update attempt on task ID: {} by user: {}", id, currentUser.getUsername());
             throw new UnauthorizedException("Unauthorized to update this task");
         }
@@ -146,8 +149,11 @@ public class TaskService {
         User user = userRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         
-        // Only creator can delete
-        if (!task.getCreatedBy().getId().equals(user.getId())) {
+        // Only creator or ADMIN can delete
+        boolean isAdmin = user.getRole() == Role.ADMIN;
+        boolean isCreator = task.getCreatedBy().getId().equals(user.getId());
+        
+        if (!isAdmin && !isCreator) {
             logger.warn("Unauthorized delete attempt on task ID: {} by user: {}", id, currentUser.getUsername());
             throw new UnauthorizedException("Unauthorized to delete this task");
         }

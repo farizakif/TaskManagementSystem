@@ -44,12 +44,9 @@ public class TaskController {
             @PathVariable Long id,
             @Valid @RequestBody TaskRequest request,
             @AuthenticationPrincipal UserDetails currentUser) {
-        try {
-            TaskResponse response = taskService.updateTask(id, request, currentUser);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        logger.info("Update task request for ID: {} by user: {}", id, currentUser.getUsername());
+        TaskResponse response = taskService.updateTask(id, request, currentUser);
+        return ResponseEntity.ok(response);
     }
     
     @GetMapping("/{id}")
